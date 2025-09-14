@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CLICK</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />    
+</head><style>
+    /* simple centering for the surprise image */
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(180deg,#f79d9d,#f3bbf8);margin:0}
+    .card{background:rgba(255,255,255,0.04);padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center}
+    img{max-width:90vw;max-height:35vh;border-radius:10px}
+    .back{margin-top:12px;display:inline-block;color:#fff;background:#ff6b6b;padding:8px 12px;border-radius:8px;text-decoration:none}
+  </style>
+
+<body> 
+
+</head>
+<body>
+  <div class="card" role="main">
+      <img src="cat1.png" alt="Monkey surprise" />
+    <div>
+
+    </div>
+  </div>
+
+  <!-- changed: remove invalid attributes on <button> -->
+  <button id="catchBtn" aria-label="Catch me button">
+     CLICK HEREEEEEE
+  </button>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('catchBtn');
+      let lastMove = 0;
+      const cooldown = 200; // ms between moves
+      const fleeDistance = 50; // px: start fleeing when cursor is closer than this
+
+      // ensure initial center (CSS already centers via left/top 50% in style.css)
+      // Move function: choose random center coords so the button stays fully visible
+      function moveButtonRandomly() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const rect = btn.getBoundingClientRect();
+        const bw = rect.width;
+        const bh = rect.height;
+
+        // center coordinate must be within [bw/2, vw - bw/2]
+        const cx = Math.random() * (vw - bw) + bw/2;
+        const cy = Math.random() * (vh - bh) + bh/2;
+
+        btn.style.left = cx + 'px';
+        btn.style.top = cy + 'px';
+        // keep transform: translate(-50%,-50%) in CSS so left/top represent center
+      }
+
+      // distance between two points
+      function dist(x1,y1,x2,y2){ return Math.hypot(x1-x2, y1-y2); }
+
+      // on mouse move, check proximity and move if needed (with cooldown)
+      window.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastMove < cooldown) return;
+
+        const rect = btn.getBoundingClientRect();
+        // compute button center
+        const bx = rect.left + rect.width/2;
+        const by = rect.top + rect.height/2;
+
+        if (dist(e.clientX, e.clientY, bx, by) < fleeDistance) {
+          lastMove = now;
+          moveButtonRandomly();
+        }
+      });
+
+      // also handle touchstart for mobile: move when user taps near button
+      window.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        const rect = btn.getBoundingClientRect();
+        const bx = rect.left + rect.width/2;
+        const by = rect.top + rect.height/2;
+        if (Math.hypot(t.clientX - bx, t.clientY - by) < fleeDistance) {
+          moveButtonRandomly();
+        }
+      }, {passive:true});
+
+      // prevent immediate flee while user is pressing the button
+      btn.addEventListener('pointerdown', () => {
+        // delay movement for one cooldown so the click can register
+        lastMove = Date.now() + cooldown;
+      });
+
+      // navigate to Suprise.html when clicked (shows monkey.png)
+      btn.addEventListener('click', () => {
+        window.location.href = 'Surprise.html';
+      });
+
+      // keyboard / accessibility: allow "catch" via Enter/Space
+      btn.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') btn.click();
+      });
+
+      // place initial random position once page loads
+      window.addEventListener('load', () => {
+        moveButtonRandomly();
+      });
+
+      // keep button positioned if window resizes
+      window.addEventListener('resize', () => {
+        // optional: nudge button back into view if it overflows after resize
+        const rect = btn.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        let cx = rect.left + rect.width/2;
+        let cy = rect.top + rect.height/2;
+        const bw = rect.width, bh = rect.height;
+        cx = Math.max(bw/2, Math.min(vw - bw/2, cx));
+        cy = Math.max(bh/2, Math.min(vh - bh/2, cy));
+        btn.style.left = cx + 'px';
+        btn.style.top = cy + 'px';
+      });
+    })();
+  </script>
+
+</body>
+</html>

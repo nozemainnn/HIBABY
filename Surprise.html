@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Surprise!</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* simple centering for the surprise image */
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      background:linear-gradient(180deg,#040708,#130513);
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.04);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      text-align:center;
+      max-width:1200px;
+      width:100%;
+    }
+
+    .card h2{
+      color:#27eb00;
+      margin:0 0 14px;
+      font-size:1.5rem;
+      line-height:1.2;
+      letter-spacing:0.6px;
+      text-transform:uppercase;
+      text-shadow:0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    img{
+      max-width:90vw;
+      max-height:80vh;
+      border-radius:10px;
+      display:block;
+      margin:0 auto;
+    }
+
+    .back{
+      margin-top:12px;
+      display:inline-block;
+      color:#fff;
+      background:#c900f1a8;
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+    }
+
+    @media (min-width:900px){
+      .card h2{ font-size:1.8rem }
+      img{ max-width:88vw; max-height:84vh }
+    }
+
+    @media (max-width:520px){
+      .card{ padding:12px }
+      .card h2{ font-size:1.15rem; margin-bottom:10px }
+      img{ max-width:96vw; max-height:70vh }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <h2>👻</h2>
+    <img src="monkey.png" alt="Monkey surprise" />
+    <div>
+      <a class="back" href="here.html"> CLICK HERE PO </a>
+    </div>
+  </div>
+</body>
+</html>

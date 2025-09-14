@@ -1,0 +1,79 @@
+/* ...existing code... */
+
+:root{
+    background-color: black;
+    -
+}
+
+/* Page */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background:
+      radial-gradient(800px 600px at 10% 10%, rgba(86,142,255,0.06), transparent 10%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    position:relative; /* important so absolutely positioned button is within viewport */
+    overflow:hidden;
+    min-height:100vh;
+}
+
+/* Button (targets your single button element) */
+button{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    padding:0.85rem 1.25rem;
+    font-size:0.8rem;
+    font-weight:700;
+    color:#fff;
+    background:linear-gradient(135deg,#ff7a7a 0%, #ff4d6d 60%);
+    border:0;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(11,37,69,0.45), 0 2px 6px rgba(0,0,0,0.25);
+    cursor:pointer;
+    transition:transform 160ms cubic-bezier(.2,.9,.3,1), box-shadow 160ms, background 220ms;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover / focus / active states */
+button:hover{
+    transform:translate(-50%,-50%) scale(1.04);
+    box-shadow:0 14px 28px rgba(11,37,69,0.55);
+}
+
+button:active{
+    transform:translate(-50%,-50%) scale(0.98);
+}
+
+button:focus{
+    outline: none;
+    box-shadow:0 0 0 6px rgba(255,107,107,0.12), 0 10px 24px rgba(11,37,69,0.45);
+}
+
+/* Small-screen adjustments */
+@media (max-width:520px){
+    button{
+        padding:0.7rem 1rem;
+        font-size:0.95rem;
+    }
+}
+
+/* Optional playful "shake" when user misses it — add via JS by toggling .missed */
+@keyframes shake {
+    0% { transform: translate(-50%,-50%) translateX(0) }
+    25% { transform: translate(-50%,-50%) translateX(-6px) }
+    50% { transform: translate(-50%,-50%) translateX(6px) }
+    75% { transform: translate(-50%,-50%) translateX(-4px) }
+    100% { transform: translate(-50%,-50%) translateX(0) }
+}
+button.missed{
+    animation: shake 420ms ease-in-out;
+}
+
+/* ...existing code... */
