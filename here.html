@@ -7,25 +7,78 @@
   <title>Surprise!</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* simple centering for the surprise image */
-    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(180deg,#071127,#0b2545);margin:0}
-    .card{background:rgba(255,255,255,0.04);padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center}
-    img{max-width:90vw;max-height:40vh;border-radius:10px}
-    .back{margin-top:12px;display:inline-block;color:#fff;background:#ff6b6b;padding:8px 12px;border-radius:8px;text-decoration:none}
+    /* Responsive card centered on screen */
+    :root{
+      --bg-start:#071127;
+      --bg-end:#0b2545;
+      --card-bg: rgba(255,255,255,0.04);
+      --accent: #ff6b6b;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      background:linear-gradient(180deg,var(--bg-start),var(--bg-end));
+      padding:16px;
+      box-sizing:border-box;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .card{
+      background:var(--card-bg);
+      padding:18px;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      text-align:center;
+      max-width:420px;
+      width:100%;
+      box-sizing:border-box;
+    }
+
+    .card .images{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+
+    .card img{
+      width:100%;
+      max-width:360px;
+      height:auto;
+      max-height:45vh;
+      border-radius:10px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .back{
+      margin-top:12px;
+      display:inline-block;
+      color:#fff;
+      background:var(--accent);
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+    }
+
+    @media (max-width:420px){
+      .card{padding:12px}
+      .card img{max-height:40vh}
+    }
   </style>
 </head>
 <body>
-  <div class="card" role="main">
-      <img src="cat.png" alt="Monkey surprise" />
-    <img src="bf.ppg.jpg" alt="Monkey surprise" />
-      <img src="love.png" alt="Monkey surprise" />
-        <a class="back" href="index.html">        
-          pst! </a>
+  <div class="card" role="main" aria-label="Surprise card">
+    <div class="images">
+      <img src="cat.png" alt="Cat surprise" />
+      <img src="bf.jpg" alt="Friend surprise" />
+      <img src="love.png" alt="Love icon" />
     </div>
-  </div>
-    <div>
 
-    </div>
+    <a class="back" href="index.html">pst!</a>
   </div>
 </body>
 </html>
